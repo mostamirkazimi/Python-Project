@@ -6,10 +6,10 @@ st.title("📊 Interactive Chart Exporter")
 uploaded_file = st.file_uploader("Upload your CSV file", type=["csv","txt","data","tsv","dat","table","xls","xlsx","xlsm","xlsb","odf","ods","odt"])
 if uploaded_file is not None:
    df = pd.read_csv(uploaded_file , sep=None, engine='python')
-   st.success("File uploaded successfully!")
-   st.subheader("Data Preview")
+   st.success("✅ File uploaded successfully!")
+   st.subheader("📋 Data Preview")
    st.dataframe(df.head(10))
-   st.subheader("Dataset Report")
+   st.subheader("📑 Dataset Report")
    if st.button("Generate Report"):
        report = f"Dataset Report:\n\n"
        report += f"Number of Rows: {df.shape[0]}\n"
@@ -24,7 +24,7 @@ if uploaded_file is not None:
            file_name="dataset_report.txt",
            mime="text/plain"
        )
-   st.subheader("Dataset Chart")
+   st.subheader("📈 Dataset Chart")
    chart_type = st.selectbox("Select Chart Type", ["Line Chart", "Bar Chart", "Scatter Plot"],index=0)
    numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
    selected_columns = st.multiselect("Select Columns for Chart", numeric_columns)
@@ -38,17 +38,17 @@ if uploaded_file is not None:
            col_index += 1
        if "Line Chart" in chart_type:
            with cols[col_index]:
-               st.write(f"### Line Chart for {', '.join(selected_columns)}")
+               st.write(f"### 📉  Line Chart for {', '.join(selected_columns)}")
                st.line_chart(df[selected_columns])
            col_index += 1
        if "Bar Chart" in chart_type:
            with cols[col_index]:
-               st.write(f"### Bar Chart for {', '.join(selected_columns)}")
+               st.write(f"### 📊  Bar Chart for {', '.join(selected_columns)}")
                st.bar_chart(df[selected_columns])
            col_index += 1
        if "Scatter Plot" in chart_type:
            with cols[col_index]:
-               st.write(f"### Scatter Plot for {', '.join(selected_columns)}")
+               st.write(f"### 📈  Scatter Plot for {', '.join(selected_columns)}")
                st.scatter_chart(df[selected_columns])
            col_index += 1
 
